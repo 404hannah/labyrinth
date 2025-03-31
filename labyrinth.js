@@ -310,8 +310,11 @@ function adjChecker(node){
                 }
             }
 
+            console.log("recursion");
+            console.log("node: ", path[index]["id"]);
+           
             if (!isSolve){
-                solveArr.pop();
+                console.log("popped node: ", solveArr.pop());
             }
 
             // Get the previous cell
@@ -336,7 +339,7 @@ function gen(){
 
 function solve(){
     solveArr.forEach(element => {
-        console.log(element);
+        console.log(element["id"]);
         if(element["isFinish"] == true){
             document.getElementById("cell-" + String(element["id"])).style.backgroundColor = "white";
         } else if (element["isStart"] == true){
