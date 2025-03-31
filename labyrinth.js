@@ -5,6 +5,8 @@
 
 let nodes = [[], []];
 let path = [];
+let solveArr = [];
+let isSolve = false;
 let startNode, finNode;
 
 main();
@@ -75,11 +77,6 @@ function nodeInit(i, j, id){
         isStart: false,
         isFinish: false,
         isTravelled: false,
-        
-        fun: function findConn(){},
-        fun: function isStart(){},
-        fun: function isFinish(){},
-        fun: function isTravelled(){} 
     };
 }
 
@@ -206,7 +203,7 @@ function startFinGen(){
     // Finalizing finish
     if (nodes[i][j]["id"] === fin){
         nodes[i][j]["isFinish"] = true;
-        document.getElementById("cell-" + String(nodes[i][j]["id"])).style.backgroundColor = "green";
+        document.getElementById("cell-" + String(nodes[i][j]["id"])).style.backgroundColor = "white";
         finNode = nodes[i][j];
     }
 }
@@ -217,11 +214,18 @@ function search(node){
     path.push(node);
     node["isTravelled"] = true;
 
+    if(!isSolve){
+        solveArr.push(node);
+    }
+    
+    if(node["isFinish"] == true){
+        isSolve = true;
+    }
+
     node = adjChecker(node);
     if (node === "end"){
         return;
     }
-    console.log("after adjChecker (search): ", node);
 
     // Choosing one of the adjacent cells
     let bool2 = true;
@@ -244,32 +248,26 @@ function search(node){
     // Usage of property "none" is attributed to Nicky Reinert (Medium article).
     // Only works in top row and partially works in rightmost row
     // Top, Left, Right, Bottom
-    console.log(node["id"]);
-    console.log(adjNode["id"]);
     if (Number(node["id"] - 100) == Number(adjNode["id"])){
         // From
         document.getElementById("cell-" + String(node["id"])).style.borderTop = "none";
         // To
         document.getElementById("cell-" + String(adjNode["id"])).style.borderBottom = "none";
-        console.log("Direction: Top");
     } else if (Number(node["id"] - 1) == Number(adjNode["id"])){
         // From
         document.getElementById("cell-" + String(node["id"])).style.borderLeft = "none";
         // To
         document.getElementById("cell-" + String(adjNode["id"])).style.borderRight = "none";
-        console.log("Direction: Left");
     } else if (Number(Number(node["id"]) + 1) == Number(adjNode["id"])){
         // From
         document.getElementById("cell-" + String(node["id"])).style.borderRight = "none";
         // To
         document.getElementById("cell-" + String(adjNode["id"])).style.borderLeft = "none";
-        console.log("Direction: Right");
     } else if (Number(Number(node["id"]) + 100) == Number(adjNode["id"])){
         // From
         document.getElementById("cell-" + String(node["id"])).style.borderBottom = "none";
         // To
         document.getElementById("cell-" + String(adjNode["id"])).style.borderTop = "none";
-        console.log("Direction: Bottom");
     }
 
     if (adjNode["isFinish"] == false){
@@ -282,8 +280,6 @@ function search(node){
 }
 
 function adjChecker(node){
-    console.log("adjChecker: ", node);
-    console.log("adjChecker adjs: ", node["adjacents"]);
     let bool = false;
 
     // To determine if all adjacent cells are travelled
@@ -305,7 +301,6 @@ function adjChecker(node){
     if(!bool){
         // Checks if all cells are travelled, the function ends
         if (path.length == (18*32)){
-            console.log("exit()");
             return "end";
         } else {
             var index;
@@ -315,14 +310,15 @@ function adjChecker(node){
                 }
             }
 
-            console.log("recursion");
+            if (!isSolve){
+                solveArr.pop();
+            }
+
             // Get the previous cell
             return adjChecker(path[index - 1]);
         }
         
     } else {
-        console.log("adjChecker done");
-        console.log("adjChecker done node: ", node);
         return node;
     }
 }
@@ -332,6 +328,21 @@ function gen(){
     path = [];
     startNode = "";
     finNode = "";
+    solveArr = [];
+    isSolve = false;
 
     main();
+}
+
+function solve(){
+    solveArr.forEach(element => {
+        console.log(element);
+        if(element["isFinish"] == true){
+            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = "white";
+        } else if (element["isStart"] == true){
+            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = "purple";
+        } else {
+            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = "magenta";
+        }
+    });
 }
