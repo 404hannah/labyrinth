@@ -17,8 +17,8 @@ body{
 }
 
 .maze-ctr{
-    width: 95%;
-    height: 95%;
+    width: 98%;
+    height: 98%;
 
     border-style: solid;
     border-width: 10px;
@@ -28,8 +28,8 @@ body{
     column-gap: 0px;
     row-gap: 0px;
 
-    justify-content: center;
-    align-items: center;
+    justify-content: stretch;
+    align-items: stretch;
 }
 
 .cell{
@@ -44,7 +44,7 @@ body{
     justify-content: center;
     align-items: center;
 
-    background-color: white;
+    background-color: plum;
 
     box-sizing: border-box;
 }

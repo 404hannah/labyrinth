@@ -9,6 +9,11 @@ let solveArr = [];
 let isSolve = false;
 let startNode, finNode;
 
+let colSta = "purple";
+let colFin = "white";
+let colCel = "plum";
+let colSol = "magenta";
+
 main();
 
 function main(){
@@ -183,7 +188,7 @@ function startFinGen(){
     // Finalizing start
     if(nodes[i][j]["id"] === start){
         nodes[i][j]["isStart"] = true;
-        document.getElementById("cell-" + String(nodes[i][j]["id"])).style.backgroundColor = "purple";
+        document.getElementById("cell-" + String(nodes[i][j]["id"])).style.backgroundColor = colSta;
         startNode = nodes[i][j];
     } 
 
@@ -203,7 +208,7 @@ function startFinGen(){
     // Finalizing finish
     if (nodes[i][j]["id"] === fin){
         nodes[i][j]["isFinish"] = true;
-        document.getElementById("cell-" + String(nodes[i][j]["id"])).style.backgroundColor = "white";
+        document.getElementById("cell-" + String(nodes[i][j]["id"])).style.backgroundColor = colFin;
         finNode = nodes[i][j];
     }
 }
@@ -273,9 +278,9 @@ function search(node){
     }
 
     if (adjNode["isFinish"] == false){
-        document.getElementById("cell-" + String(adjNode["id"])).style.backgroundColor = "violet";
+        document.getElementById("cell-" + String(adjNode["id"])).style.backgroundColor = colCel;
     } else {
-        document.getElementById("cell-" + String(adjNode["id"])).style.backgroundColor = "white";
+        document.getElementById("cell-" + String(adjNode["id"])).style.backgroundColor = colFin;
     }
     
     search(adjNode);
@@ -312,9 +317,11 @@ function adjChecker(node){
                 }
             }
            
+            /*
             if (!isSolve){
                 console.log("popped node: ", solveArr.pop());
             }
+            */
 
             // Get the previous cell
             return adjChecker(path[index - 1]);
@@ -340,11 +347,11 @@ function solve(){
     solveArr.forEach(element => {
         console.log("Painting: ", element["id"]);
         if(element["isFinish"] == true){
-            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = "white";
+            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colFin;
         } else if (element["isStart"] == true){
-            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = "purple";
+            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colSta;
         } else {
-            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = "magenta";
+            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colSol;
         }
     });
 }
