@@ -8,6 +8,7 @@ let path = [];
 let solveArr = [];
 let isSolve = false;
 let startNode, finNode;
+let solSwitch = true;
 
 let colSta = "purple";
 let colFin = "white";
@@ -339,19 +340,37 @@ function gen(){
     finNode = "";
     solveArr = [];
     isSolve = false;
+    solSwitch = true;
 
     main();
 }
 
 function solve(){
-    solveArr.forEach(element => {
-        console.log("Painting: ", element["id"]);
-        if(element["isFinish"] == true){
-            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colFin;
-        } else if (element["isStart"] == true){
-            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colSta;
-        } else {
-            document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colSol;
-        }
-    });
+    if(solSwitch){
+        document.getElementById("solve").innerText = "Unsolve";
+        solSwitch = false;
+        solveArr.forEach(element => {
+            console.log("Painting: ", element["id"]);
+            if(element["isFinish"] == true){
+                document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colFin;
+            } else if (element["isStart"] == true){
+                document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colSta;
+            } else {
+                document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colSol;
+            }
+        });
+    } else {
+        document.getElementById("solve").innerText = "Solve";
+        solSwitch = true;
+        solveArr.forEach(element => {
+            console.log("Painting: ", element["id"]);
+            if(element["isFinish"] == true){
+                document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colFin;
+            } else if (element["isStart"] == true){
+                document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colSta;
+            } else {
+                document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colCel;
+            }
+        });
+    }
 }
