@@ -334,6 +334,9 @@ function adjChecker(node){
 }
 
 function gen(){
+    document.getElementById("solve").innerText = "Solve";
+    solSwitch = true;
+
     nodes = [[], []];
     path = [];
     startNode = "";
@@ -347,7 +350,7 @@ function gen(){
 
 function solve(){
     if(solSwitch){
-        document.getElementById("solve").innerText = "Unsolve";
+        document.getElementById("solve").innerText = "Clear";
         solSwitch = false;
         solveArr.forEach(element => {
             console.log("Painting: ", element["id"]);
