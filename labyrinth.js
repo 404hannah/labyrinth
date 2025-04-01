@@ -215,10 +215,12 @@ function search(node){
     node["isTravelled"] = true;
 
     if(!isSolve){
+        console.log("Push: ", node["id"]);
         solveArr.push(node);
     }
     
     if(node["isFinish"] == true){
+        console.log("Finish");
         isSolve = true;
     }
 
@@ -309,9 +311,6 @@ function adjChecker(node){
                     index = i;
                 }
             }
-
-            console.log("recursion");
-            console.log("node: ", path[index]["id"]);
            
             if (!isSolve){
                 console.log("popped node: ", solveArr.pop());
@@ -339,7 +338,7 @@ function gen(){
 
 function solve(){
     solveArr.forEach(element => {
-        console.log(element["id"]);
+        console.log("Painting: ", element["id"]);
         if(element["isFinish"] == true){
             document.getElementById("cell-" + String(element["id"])).style.backgroundColor = "white";
         } else if (element["isStart"] == true){
