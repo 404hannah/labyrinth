@@ -346,7 +346,12 @@ function adjChecker(node){
             }
            
             if (!isSolve){
-                popArr.push(solveArr.pop());
+                if(solveArr.length != 0){
+                    // Start node is never popped
+                    if(solveArr.length != 1){
+                        popArr.push(solveArr.pop());
+                    }
+                }
             }
 
             // Get the previous cell
@@ -392,7 +397,6 @@ function solve(){
         document.getElementById("solve").innerText = "Solve";
         solSwitch = true;
         solveArr.forEach(element => {
-            console.log("Painting: ", element["id"]);
             if(element["isFinish"] == true){
                 document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colFin;
             } else if (element["isStart"] == true){
