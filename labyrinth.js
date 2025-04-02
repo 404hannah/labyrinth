@@ -6,6 +6,8 @@
 let nodes = [[], []];
 let path = [];
 let solveArr = [];
+let popArr = [];
+
 let isSolve = false;
 let startNode, finNode;
 let solSwitch = true;
@@ -219,20 +221,45 @@ function search(node){
     // Depth-first search (Dfs)
     path.push(node);
     node["isTravelled"] = true;
-
-    if(!isSolve){
-        console.log("Push: ", node["id"]);
-        solveArr.push(node);
-    }
     
-    if(node["isFinish"] == true){
-        console.log("Finish");
-        isSolve = true;
-    }
-
     node = adjChecker(node);
     if (node === "end"){
         return;
+    }
+
+    var solAdj = false;
+    if(!isSolve){
+        // Adding of wrongly popped paths
+        while(solAdj == false){
+            if(solveArr.length == 0){
+                break;
+            }
+            
+            let x, y;
+            for (let i = 0; i < node["adjacents"].length; i++){
+                element = node["adjacents"][i];
+                if (String(element).length == 4) {
+                    x = Number(String(element).substring(0, 2));
+                    y = Number(String(element).substring(2, 4));
+                } else if (String(element).length == 3) {
+                    x = Number(String(element).substring(0, 1));
+                    y = Number(String(element).substring(1, 3));
+                }
+
+                if(solveArr[solveArr.length - 1]["id"] === nodes[x][y]["id"]){
+                    solAdj = true;
+                }
+            }
+    
+            if(!solAdj){
+                solveArr.push(popArr.pop());
+            }
+        }
+        solveArr.push(node);
+    }
+
+    if(node["isFinish"] == true){
+        isSolve = true;
     }
 
     // Choosing one of the adjacent cells
@@ -318,11 +345,9 @@ function adjChecker(node){
                 }
             }
            
-            /*
             if (!isSolve){
-                console.log("popped node: ", solveArr.pop());
+                popArr.push(solveArr.pop());
             }
-            */
 
             // Get the previous cell
             return adjChecker(path[index - 1]);
@@ -344,6 +369,7 @@ function gen(){
     solveArr = [];
     isSolve = false;
     solSwitch = true;
+    popArr = [];
 
     main();
 }
