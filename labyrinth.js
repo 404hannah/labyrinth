@@ -26,8 +26,17 @@ function main(){
     mazeBase();
     startFinGen();
     search(startNode);
+    borderWidth();
+}
 
+function borderWidth(){
     switch(Number(numRow)){
+        case 45:
+        case 36:
+            document.querySelectorAll('.cell').forEach(element => {
+                element.style.borderWidth = "3px";
+            });
+            break;
         case 27:
             document.querySelectorAll('.cell').forEach(element => {
                 element.style.borderWidth = "5px";
