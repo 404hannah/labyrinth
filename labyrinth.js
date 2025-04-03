@@ -17,6 +17,9 @@ let colFin = "white";
 let colCel = "plum";
 let colSol = "magenta";
 
+var numRow = 9;
+var numCol = 16;
+
 main();
 
 function main(){
@@ -28,10 +31,17 @@ function main(){
 function mazeBase(){
     let baseHTML = '';
 
+    var fr = "";
+    // Change CSS of maze container
+    for(let i = 0; i < numCol; i++){
+        fr += "1fr ";
+    }
+    document.querySelector(".maze-ctr").style.gridTemplateColumns = fr;
+
     // Assigning id according to the position
-    for(let i = 1; i <= 18; i++){
+    for(let i = 1; i <= numRow; i++){
         nodes[i] = [];
-        for(let j = 1; j <= 32; j++){
+        for(let j = 1; j <= numCol; j++){
             nodes[i][j] = {};
             let cell;
             let id;
@@ -53,7 +63,7 @@ function mazeBase(){
             if(i == 1){
                 // First row
                 borderInit(i, j, "top");
-            } else if (i == 18){
+            } else if (i == numRow){
                 // Last row
                 borderInit(i, j, "bottom");
             }
@@ -61,7 +71,7 @@ function mazeBase(){
             if(j == 1){
                 // First column
                 borderInit(i, j, "left");
-            } else if (j == 32){
+            } else if (j == numCol){
                 // Last column
                 borderInit(i, j, "right");
             }
@@ -165,8 +175,8 @@ function adjacentInit(i, j, id){
 function startFinGen(){
     let borderCells = [];
     // Collect all cells that are borders
-    for(let i = 1; i <= 18; i++){
-        for(let j = 1; j <= 32; j++){
+    for(let i = 1; i <= numRow; i++){
+        for(let j = 1; j <= numCol; j++){
             if(nodes[i][j]["borders"].length != 0){
                 borderCells.push(nodes[i][j]["id"]);
             }
@@ -252,9 +262,12 @@ function search(node){
             }
     
             if(!solAdj){
+                // console.log("solvArr -> Adding popped: ", popArr[popArr.length - 1]["id"]);
                 solveArr.push(popArr.pop());
             }
         }
+        
+        // console.log("solvArr -> Pushing: ", node["id"]);
         solveArr.push(node);
     }
 
@@ -335,7 +348,7 @@ function adjChecker(node){
 
     if(!bool){
         // Checks if all cells are travelled, the function ends
-        if (path.length == (18*32)){
+        if (path.length == (numRow*numCol)){
             return "end";
         } else {
             var index;
@@ -349,6 +362,7 @@ function adjChecker(node){
                 if(solveArr.length != 0){
                     // Start node is never popped
                     if(solveArr.length != 1){
+                        // console.log("solvArr -> Popping: ", solveArr[solveArr.length-1]["id"]);
                         popArr.push(solveArr.pop());
                     }
                 }
@@ -384,7 +398,7 @@ function solve(){
         document.getElementById("solve").innerText = "Clear";
         solSwitch = false;
         solveArr.forEach(element => {
-            console.log("Painting: ", element["id"]);
+            // console.log("Painting: ", element["id"]);
             if(element["isFinish"] == true){
                 document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colFin;
             } else if (element["isStart"] == true){
@@ -406,4 +420,19 @@ function solve(){
             }
         });
     }
+}
+
+function size(){
+    document.querySelector('.size-ctr').style.display = "flex";
+}
+
+function sizeChange(){
+    numRow = document.getElementById('textbox-row').value;
+    numCol = document.getElementById('textbox-col').value;
+    gen();
+    sizeCancel();
+}
+
+function sizeCancel(){
+    document.querySelector('.size-ctr').style.display = "none";
 }

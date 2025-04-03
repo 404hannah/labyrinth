@@ -12,10 +12,22 @@
 
     <body>      
         <div class="menu">
-            <button class="gen" onclick="gen()">Generate</button>
             <h1>LABYRINTH</h1>
-            <button class="solve" id="solve" onclick="solve()">Solve</button>
+            <div class="btn-ctr">
+                <button class="size" onclick="size()">Size</button>
+                <button class="gen" onclick="gen()">Generate</button>
+                <button class="solve" id="solve" onclick="solve()">Solve</button>
+            </div>
         </div>
+            <div class="size-ctr">
+                <h2>Change Size</h2>
+                <input type="text" class="textbox" id="textbox-row" placeholder="Type row size">
+                <input type="text" class="textbox" id="textbox-col" placeholder="Type column sized">
+                <div>
+                    <button class="size-change" onclick="sizeChange()">Okay</button>
+                    <button class="cancel" onclick="sizeCancel()">Cancel</button>
+                </div>
+            </div>
         <div class="maze-ctr">
             <!-- Generate maze through JavaScript -->
         </div>
