@@ -427,12 +427,20 @@ function size(){
 }
 
 function sizeChange(){
-    numRow = document.getElementById('textbox-row').value;
-    numCol = document.getElementById('textbox-col').value;
-    gen();
-    sizeCancel();
+    inputRow = document.getElementById('textbox-row').value;
+    inputCol = document.getElementById('textbox-col').value;
+
+    if(inputRow == "" || inputCol == ""){
+        document.querySelector('.size-ctr p').innerText = "Please input value/s.";
+    } else {
+        numRow = inputRow;
+        numCol = inputCol;
+        gen();
+        sizeCancel();
+    }
 }
 
 function sizeCancel(){
     document.querySelector('.size-ctr').style.display = "none";
+    document.querySelector('.size-ctr p').innerText = "16:9 ratio is recommended for landscape and 9:16 for portrait.";
 }
