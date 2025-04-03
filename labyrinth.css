@@ -53,6 +53,8 @@ body{
     width: 100vw;
     height: 50px;
 
+    margin: 2px;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -64,6 +66,7 @@ h1{
     font-weight: bold;
     font-size: 24px;
     color: white;
+    margin: 0px 10px;
 }
 
 .size, .gen, .solve{
@@ -106,7 +109,7 @@ h1{
     z-index: 103;
 
     width: 350px;
-    height: 350px;
+    height: 200px;
 
     padding: 5px 5px 5px 5px;
 
@@ -134,11 +137,12 @@ h1{
 .size-ctr p{
     text-align: center;
 
+    display: none;
     margin: 0px 0px 10px 0px;
     padding: 0px;
 }
 
-.size-ctr .textbox{
+.size-ctr .select{
     width: 80%;
     height: 50px;
 

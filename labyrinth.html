@@ -23,9 +23,13 @@
         </div>
             <div class="size-ctr">
                 <h2>Change Size</h2>
-                <p>16:9 ratio is recommended for landscape and 9:16 for portrait.</p>
-                <input type="text" class="textbox" id="textbox-row" placeholder="Type row size">
-                <input type="text" class="textbox" id="textbox-col" placeholder="Type column sized">
+                <p>Please input value/s.</p>
+                <select class="select" id="select-size">
+                    <option value="" disabled selected>Column:Row</option>
+                    <option value="16-09">16:9</option>
+                    <option value="32-18">32:18</option>
+                    <option value="64-27">64:27</option>
+                </select>
                 <div>
                     <button class="size-change" onclick="sizeChange()">Okay</button>
                     <button class="cancel" onclick="sizeCancel()">Cancel</button>

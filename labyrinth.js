@@ -26,6 +26,18 @@ function main(){
     mazeBase();
     startFinGen();
     search(startNode);
+
+    switch(Number(numRow)){
+        case 27:
+            document.querySelectorAll('.cell').forEach(element => {
+                element.style.borderWidth = "5px";
+            });
+            break;
+        default:
+            document.querySelectorAll('.cell').forEach(element => {
+                element.style.borderWidth = "10px";
+            });
+    }
 }
 
 function mazeBase(){
@@ -427,20 +439,21 @@ function size(){
 }
 
 function sizeChange(){
-    inputRow = document.getElementById('textbox-row').value;
-    inputCol = document.getElementById('textbox-col').value;
+    var inputRow = document.getElementById('select-size').value.substring(3, 5);
+    var inputCol = document.getElementById('select-size').value.substring(0, 2);
 
     if(inputRow == "" || inputCol == ""){
-        document.querySelector('.size-ctr p').innerText = "Please input value/s.";
+        document.querySelector('.size-ctr p').style.display = "block";
     } else {
         numRow = inputRow;
         numCol = inputCol;
+        
         gen();
         sizeCancel();
+        document.querySelector('.size-ctr p').style.display = "none";
     }
 }
 
 function sizeCancel(){
     document.querySelector('.size-ctr').style.display = "none";
-    document.querySelector('.size-ctr p').innerText = "16:9 ratio is recommended for landscape and 9:16 for portrait.";
 }
