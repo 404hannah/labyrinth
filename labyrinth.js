@@ -17,9 +17,11 @@ let colFin = "white";
 let colCel = "plum";
 let colSol = "magenta";
 
-var numRow = 9;
-var numCol = 16;
+var numRow;
+var numCol;
+var borVal;
 
+deviceOrient();
 main();
 
 function main(){
@@ -29,20 +31,51 @@ function main(){
     borderWidth();
 }
 
+function deviceOrient(){
+    if (window.matchMedia("(orientation: landscape)").matches){
+        numRow = 9;
+        numCol = 16;
+        document.querySelector('.select').innerHTML = `
+            <option value="" disabled selected>Column:Row</option>
+            <option value="16-09">16:9</option>
+            <option value="32-18">32:18</option>
+            <option value="48-27">48:27</option>
+            <option value="64-36">64:36</option>
+        `
+        borVal = Number(numRow);
+    } else {
+        numRow = 16;
+        numCol = 9;
+        document.querySelector('.select').innerHTML = `
+            <option value="" disabled selected>Column:Row</option>
+            <option value="09-16">9:16</option>
+            <option value="18-32">18:32</option>
+            <option value="27-48">27:48</option>
+            <option value="36-64">36:64</option>
+        `
+        borVal = Number(numCol);
+    }
+    
+}
+
 function borderWidth(){
-    switch(Number(numRow)){
-        case 45:
+    switch(borVal){
         case 36:
             document.querySelectorAll('.cell').forEach(element => {
-                element.style.borderWidth = "3px";
+                element.style.borderWidth = "1px";
             });
             break;
         case 27:
             document.querySelectorAll('.cell').forEach(element => {
+                element.style.borderWidth = "3px";
+            });
+            break;
+        case 18:
+            document.querySelectorAll('.cell').forEach(element => {
                 element.style.borderWidth = "5px";
             });
             break;
-        default:
+        case 9:
             document.querySelectorAll('.cell').forEach(element => {
                 element.style.borderWidth = "10px";
             });
@@ -444,7 +477,7 @@ function solve(){
 }
 
 function size(){
-    document.querySelector('.size-ctr').style.display = "flex";
+    document.querySelector('.msg').style.display = "flex";
 }
 
 function sizeChange(){
@@ -454,8 +487,15 @@ function sizeChange(){
     if(inputRow == "" || inputCol == ""){
         document.querySelector('.size-ctr p').style.display = "block";
     } else {
+        deviceOrient();
         numRow = inputRow;
         numCol = inputCol;
+
+        if (window.matchMedia("(orientation: landscape)").matches){
+            borVal = Number(numRow);
+        } else {
+            borVal = Number(numCol);
+        }
         
         gen();
         sizeCancel();
@@ -464,5 +504,5 @@ function sizeChange(){
 }
 
 function sizeCancel(){
-    document.querySelector('.size-ctr').style.display = "none";
+    document.querySelector('.msg').style.display = "none";
 }
