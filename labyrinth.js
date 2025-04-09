@@ -316,12 +316,12 @@ function search(node){
             }
     
             if(!solAdj){
-                console.log("solvArr -> Adding popped: ", popArr[popArr.length - 1]["id"]);
+                // console.log("solvArr -> Adding popped: ", popArr[popArr.length - 1]["id"]);
                 solveArr.push(popArr.pop());
             }
         }
         
-        console.log("solvArr -> Pushing: ", node["id"]);
+        // console.log("solvArr -> Pushing: ", node["id"]);
         solveArr.push(node);
     }
 
@@ -415,12 +415,12 @@ function adjChecker(node){
             if (!isSolve){
                 if(node["isFinish"] == false){
                     // Start node is never popped
-                    if((solveArr.length != 0) || (solveArr.length != 1)){
-                        console.log("solvArr -> Popping: ", solveArr[solveArr.length-1]["id"]);
+                    if(solveArr.length != 0 && solveArr.length != 1){
+                        // console.log("solvArr -> Popping: ", solveArr[solveArr.length-1]["id"]);
                         popArr.push(solveArr.pop());
                     }
                 } else {
-                    console.log("Ending is found.");
+                    // console.log("Ending is found.");
                     solveArr.push(node);
                     isSolve = true;
                 }
@@ -436,7 +436,7 @@ function adjChecker(node){
 }
 
 function gen(){
-    console.log("Maze generation.");
+    // console.log("Maze generation.");
     document.getElementById("solve").innerText = "Solve";
     solSwitch = true;
 
@@ -457,7 +457,7 @@ function solve(){
         document.getElementById("solve").innerText = "Clear";
         solSwitch = false;
         solveArr.forEach(element => {
-            console.log("Painting: ", element["id"]);
+            // console.log("Painting: ", element["id"]);
             if(element["isFinish"] == true){
                 document.getElementById("cell-" + String(element["id"])).style.backgroundColor = colFin;
             } else if (element["isStart"] == true){
