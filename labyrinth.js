@@ -1,8 +1,3 @@
-/* Sources:
-- CS50's Introduction to Artificial Intelligence with Python 2020 by CS50
-- What School Didn't Tell You About Mazes #SoMEpi by Mattbatwings
-*/
-
 let nodes = [[], []];
 let path = [];
 let solveArr = [];
@@ -237,7 +232,6 @@ function startFinGen(){
         }
     }
 
-    // w3schools attribution:
     let rngStart = Math.floor((Math.random() * borderCells.length) + 1);
 
     let start = borderCells[rngStart - 1];
